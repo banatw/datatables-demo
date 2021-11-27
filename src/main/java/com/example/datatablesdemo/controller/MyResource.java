@@ -30,14 +30,15 @@ public class MyResource {
     // @CrossOrigin
     @GetMapping(value = "/mahasiswas")
     public DatatablesModel getAll(@RequestParam(required = false, name = "draw", defaultValue = "0") Integer draw,
-            @RequestParam("length") Integer length, @RequestParam("start") Integer start) {
+            @RequestParam("length") Integer length, @RequestParam("start") Integer start,
+            @RequestParam(name = "search[value]", required = false, defaultValue = "") String search) {
         Integer page = start / length;
         Pageable pageable = PageRequest.of(page, length);
         DatatablesModel datatablesModel = new DatatablesModel();
         datatablesModel.setDraw(draw);
-        datatablesModel.setRecordsFiltered(repo.countByNamaContainsIgnoreCase(""));
-        datatablesModel.setRecordsTotal(repo.countByNamaContainsIgnoreCase(""));
-        datatablesModel.setData(repo.findByNamaContainsIgnoreCase("", pageable));
+        datatablesModel.setRecordsFiltered(repo.countByNamaContainsIgnoreCase(search));
+        datatablesModel.setRecordsTotal(repo.countByNamaContainsIgnoreCase(search));
+        datatablesModel.setData(repo.findByNamaContainsIgnoreCase(search, pageable));
         return datatablesModel;
     }
 
