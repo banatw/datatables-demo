@@ -25,7 +25,7 @@ public class DatatablesDemoApplication implements CommandLineRunner {
 		Faker faker;
 		for (int i = 0; i < 100; i++) {
 			faker = new Faker();
-			Mahasiswa mahasiswa = new Mahasiswa(faker.name().fullName());
+			Mahasiswa mahasiswa = new Mahasiswa(faker.name().fullName(), faker.address().fullAddress());
 			this.repo.save(mahasiswa);
 		}
 	}

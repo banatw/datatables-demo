@@ -21,4 +21,7 @@ public class Mahasiswa {
 
     @NonNull
     private String nama;
+
+    @NonNull
+    private String address;
 }

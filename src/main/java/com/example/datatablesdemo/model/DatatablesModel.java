@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 public class DatatablesModel {
     private int draw;
-    private int recordsTotal;
+    private Long recordsTotal;
     private int recordsFiltered;
     private List<Mahasiswa> data;
 
