@@ -1,8 +1,5 @@
+<#import "/spring.ftl" as spring />
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
   <head>
     <meta charset="utf-8" />
@@ -16,12 +13,6 @@
       type="text/css"
       href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
   </head>
   <body>
     <!--[if lt IE 7]>
@@ -30,7 +21,12 @@
         <a href="#">upgrade your browser</a> to improve your experience.
       </p>
     <![endif]-->
-    <a href="/logout">Logout</a>
+    <div>
+      <a href="<@spring.url '/logout' />">Logout</a>
+    </div>
+    <div>
+      <a href="<@spring.url '/form' />">Add</a>
+    </div>
     <table id="tes" class="table table-striped table-bordered">
       <thead>
         <tr>
@@ -50,22 +46,12 @@
       charset="utf8"
       src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script> -->
+
     <script>
       const table = $("#tes").DataTable({
         processing: true,
         serverSide: true,
-        ajax: "http://localhost:8080/mahasiswas",
+        ajax: "<@spring.url '/mahasiswas' />",
         dataSrc: "",
         searching: true,
         lengthChange: false,
@@ -76,28 +62,27 @@
           {
             data: "idMahasiswa",
             render: function (data) {
-              return '<a href="/profile?id=' + data + '">Profile</a>';
+              return (
+                '<a href="<@spring.url "/form?id=" />' +
+                data +
+                '">Edit</a>&nbsp;&nbsp;&nbsp;<a href="#" onClick=tes(' +
+                data +
+                ') ">Delete</a>'
+              );
             },
           },
         ],
       });
 
-      // function refresh() {
-      //     table.destroy()
-      //     table = $('#tes').DataTable( {
-      //         "processing": true,
-      //         "serverSide": true,
-      //         "ajax": 'http://localhost:8080/mahasiswas/search=ba',
-      //         "dataSrc": '',
-      //         "searching" : false,
-      //         "lengthChange": false,
-      //         "pageLength": 10,
-      //         "columns":[
-      //             {data: "idMahasiswa"},
-      //             {data: "nama"}
-      //         ]
-      //     } );
-      // }
+      function tes(param) {
+        const result = window.confirm("Apakah ingin dihapus?");
+        if (result) {
+          window.location.href =
+            "<@spring.url '/form-delete?id=" + param + "'/>";
+        } else {
+        }
+        return false;
+      }
     </script>
   </body>
 </html>
