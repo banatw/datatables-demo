@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.example.datatablesdemo.EnumAction;
 import com.example.datatablesdemo.entity.Mahasiswa;
 import com.example.datatablesdemo.repository.MahasiswaRepository;
 
@@ -14,9 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -66,6 +64,11 @@ public class Mycontroller {
             mahasiswaRepository.deleteById(id.get());
         }, null);
         return "redirect:/";
+    }
+
+    @GetMapping("/select2")
+    public String getSelect2() {
+        return "select2";
     }
 
 }

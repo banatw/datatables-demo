@@ -1,5 +1,6 @@
 package com.example.datatablesdemo.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,7 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
+    @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN")
         .and().withUser("user").password("{noop}user").roles("USER");
