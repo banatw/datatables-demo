@@ -6,8 +6,6 @@ import java.util.Optional;
 import com.example.datatablesdemo.entity.City;
 import com.example.datatablesdemo.entity.Mahasiswa;
 import com.example.datatablesdemo.model.DatatablesModel;
-import com.example.datatablesdemo.model.More;
-import com.example.datatablesdemo.model.Select2Model;
 import com.example.datatablesdemo.repository.CityRepo;
 import com.example.datatablesdemo.repository.MahasiswaRepository;
 
@@ -32,14 +30,14 @@ public class MyResource {
     @Autowired
     private CityRepo cityRepo;
 
-    @Secured({"ROLE_ADMIN","ROLE_USER"})
+    @Secured({ "ROLE_ADMIN", "ROLE_USER" })
     @GetMapping(value = "mahasiswa/{page}/{size}")
     public List<Mahasiswa> getMahasiswa(@PathVariable("page") int page, @PathVariable("size") int size) {
         return repo.findAll(PageRequest.of(page, size)).toList();
     }
 
     // @CrossOrigin
-    @Secured({"ROLE_ADMIN","ROLE_USER"})
+    @Secured({ "ROLE_ADMIN", "ROLE_USER" })
     @GetMapping(value = "/mahasiswas")
     public DatatablesModel getAll(@RequestParam(required = false, name = "draw", defaultValue = "0") Integer draw,
             @RequestParam("length") Integer length, @RequestParam("start") Integer start,
@@ -55,18 +53,12 @@ public class MyResource {
         return datatablesModel;
     }
 
-   
-
-    
-   
-
-
-     @Secured({ "ROLE_ADMIN", "ROLE_USER" })
+    @Secured({ "ROLE_ADMIN", "ROLE_USER" })
     @GetMapping(value = "/cities")
     public Page<City> cities(@RequestParam(required = false) Optional<String> q,
             @RequestParam(required = false) Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.orElse(0), 10, Sort.by("name").ascending());
-        Page<City> page2 = cityRepo.findByNameContainsIgnoreCase(q.orElse(""),pageable);
+        Page<City> page2 = cityRepo.findByNameContainsIgnoreCase(q.orElse(""), pageable);
         // System.out.println(page2.getTotalPages());
         // select2Model.setResults(page2.getContent());
         // More more = new More();

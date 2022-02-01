@@ -5,8 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -17,11 +15,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class City {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    // @JsonProperty("id")
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   // @JsonProperty("id")
    private Integer id;
    @NonNull
-//    @JsonProperty("text")
-   private String name; 
+   //    @JsonProperty("text")
+   private String name;
 }
